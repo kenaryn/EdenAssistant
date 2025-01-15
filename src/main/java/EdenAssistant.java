@@ -1,19 +1,30 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class EdenAssistant {
-    Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
+    public static byte currentTime;
 
     public static void main(String[] args) {
         EdenAssistant edenAssistant = new EdenAssistant();
+        currentTime = (byte)18;
+
         edenAssistant.start();
+        scanner.close();
     }
 
     public void start() {
         // Main application's loop. Keeps running until user decides to exit.
         while (true) {
             displayMenu();
-            byte choiceItemMenu = scanner.nextByte();
-            handleChoiceMenu(choiceItemMenu);
+
+            try {
+                byte choiceItemMenu = scanner.nextByte();
+                handleChoiceMenu(choiceItemMenu);
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input.");
+                scanner.next();
+            }
         }
     }
 
@@ -31,15 +42,22 @@ public class EdenAssistant {
         System.out.print("Enter your choice: ");
     }
 
+
     public void addDinosaur() {
         Dinosaur dino = new Dinosaur("paco");
         dino.greet();
     }
 
+
+    public boolean checkParkHours (byte currentTime) {
+        return currentTime >= 8 && currentTime <= 19;
+    }
+
+
     public void handleChoiceMenu(byte choice) {
         switch (choice) {
             case 1 -> addDinosaur();
-//            case 2 -> checkParkHours();
+            case 2 -> checkParkHours(currentTime);
 //            case 3 -> greetGuest();
 //            case 4 -> checkVisitorsCount();
 //            case 5 -> manageStaff();
