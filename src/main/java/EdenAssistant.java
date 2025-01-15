@@ -3,11 +3,12 @@ import java.util.InputMismatchException;
 
 public class EdenAssistant {
     static Scanner scanner = new Scanner(System.in);
-    public static byte currentTime;
+    public static byte currentTime = 0;
+    public static boolean isOpen = false;
 
     public static void main(String[] args) {
         EdenAssistant edenAssistant = new EdenAssistant();
-        currentTime = (byte)18;
+        currentTime = (byte)20;
 
         edenAssistant.start();
         scanner.close();
@@ -29,6 +30,9 @@ public class EdenAssistant {
     }
 
     public void displayMenu() {
+        /**
+         * Print in stdout all the park's features, prefixed by an number to be later entered by the user.
+         */
         System.out.println();
         System.out.println("""
                 Welcome to Mesozoic Eden assistant!
@@ -44,13 +48,27 @@ public class EdenAssistant {
 
 
     public void addDinosaur() {
+        /**
+         * First pass on a class import with a single attribute and method.
+         */
         Dinosaur dino = new Dinosaur("paco");
         dino.greet();
     }
 
 
-    public boolean checkParkHours (byte currentTime) {
+    public boolean isParkOpen (byte currentTime) {
         return currentTime >= 8 && currentTime <= 19;
+    }
+
+    public void checkParkHours(byte currentTime) {
+        /**
+         * Prints in stdout either the park is open or not.
+         */
+        if (isParkOpen(currentTime)) {
+            System.out.println("The park is open. Visitors are welcome.");
+        } else {
+            System.out.println("The park is closed. We need to perform some minor repairs and clean up the alleys.");
+        }
     }
 
 
